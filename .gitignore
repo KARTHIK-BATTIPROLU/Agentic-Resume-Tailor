@@ -19,3 +19,4 @@ venv/
 
 # Model / HF caches
 .cache/
+tools/

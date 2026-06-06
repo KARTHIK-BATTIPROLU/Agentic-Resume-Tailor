@@ -198,8 +198,11 @@ def _run_tectonic(tex_path: Path, out_dir: Path) -> None:
             "tectonic was not found on PATH. Install it (the Docker image bundles "
             "it) before rendering PDFs."
         )
+    # Run with the .tex basename and cwd=out_dir so the input resolves correctly
+    # (passing a relative path while also setting cwd would double-nest it), and
+    # tectonic writes resume.pdf next to the input by default.
     proc = subprocess.run(
-        [exe, str(tex_path)],
+        [exe, tex_path.name],
         cwd=str(out_dir),
         capture_output=True,
         text=True,
