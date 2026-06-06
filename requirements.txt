@@ -1,0 +1,18 @@
+fastapi
+uvicorn[standard]
+# Mongo: pymongo's native async driver (AsyncMongoClient). motor is intentionally
+# NOT used — it is incompatible with langgraph-checkpoint-mongodb's pymongo>=4.12.
+pymongo>=4.12,<4.17
+pydantic
+pydantic-settings
+python-dotenv
+groq
+langgraph
+langgraph-checkpoint-mongodb
+langchain-core
+sentence-transformers
+torch
+numpy
+jinja2
+python-multipart
+httpx

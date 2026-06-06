@@ -1,0 +1,21 @@
+# Secrets
+.env
+
+# Generated artifacts
+output/
+*.pdf
+*.aux
+*.log
+*.out
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.mypy_cache/
+.pytest_cache/
+
+# Model / HF caches
+.cache/

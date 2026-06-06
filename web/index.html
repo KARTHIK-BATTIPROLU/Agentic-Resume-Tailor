@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agentic Resume Tailor</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <h1>🧭 Agentic Resume Tailor</h1>
+      <p>Build a verified career profile by chat, then generate ATS-tailored resume variants for any job.</p>
+    </div>
+    <div class="userbox">
+      <label for="userId">User ID</label>
+      <input id="userId" value="demo" />
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="profile">1 · Profile Builder</button>
+    <button class="tab" data-tab="tailor">2 · Resume Tailor</button>
+  </nav>
+
+  <!-- ============================= PROFILE BUILDER ============================= -->
+  <main id="tab-profile" class="tabpanel active">
+    <section class="chat-col">
+      <div class="card">
+        <h2>Guided interview</h2>
+        <p class="muted">The assistant asks one question at a time. You can also paste an existing resume to bootstrap.</p>
+        <textarea id="bootstrapText" placeholder="(Optional) paste an existing resume here to pre-fill your profile…"></textarea>
+        <div class="row">
+          <button id="startProfile">Start interview</button>
+          <span class="status" id="profileConn"></span>
+        </div>
+      </div>
+
+      <div class="card chat" id="profileChat" aria-live="polite"></div>
+
+      <div class="card">
+        <div class="row">
+          <input id="profileReply" placeholder="Type your answer…" disabled />
+          <button id="sendProfile" disabled>Send</button>
+        </div>
+      </div>
+
+      <div class="card hidden" id="pendingCard">
+        <h2>Confirm new items</h2>
+        <div id="pendingList"></div>
+      </div>
+    </section>
+
+    <section class="cards-col" id="profileCards">
+      <p class="muted" id="profileEmpty">Your profile sections will appear here and update live as you chat.</p>
+    </section>
+  </main>
+
+  <!-- ============================== RESUME TAILOR ============================== -->
+  <main id="tab-tailor" class="tabpanel">
+    <section class="chat-col">
+      <div class="card">
+        <h2>Target job</h2>
+        <textarea id="jdText" placeholder="Paste the job description here…"></textarea>
+        <div class="row">
+          <button id="startTailor">Tailor my resume</button>
+          <span class="status" id="tailorConn"></span>
+        </div>
+      </div>
+
+      <div class="card chat" id="tailorChat" aria-live="polite"></div>
+
+      <div class="card hidden" id="tailorReplyCard">
+        <div class="row">
+          <input id="tailorReply" placeholder="Answer the question…" />
+          <button id="sendTailor">Send</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="cards-col" id="variantsCol">
+      <p class="muted" id="variantsEmpty">Your three scored resume variants will appear here.</p>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

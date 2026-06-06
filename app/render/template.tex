@@ -1,0 +1,109 @@
+((= ATS-clean single-column resume template. All values are LaTeX-escaped in
+    render.py before substitution, and Jinja delimiters are remapped so they
+    never clash with LaTeX braces or percent signs. =))
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.6in]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\hypersetup{colorlinks=true, urlcolor=blue, linkcolor=black, pdfborder={0 0 0}}
+
+% Tight, ATS-friendly lists and section headers.
+\setlist[itemize]{leftmargin=1.4em, topsep=2pt, itemsep=1pt, parsep=0pt}
+\titleformat{\section}{\large\bfseries\scshape}{}{0em}{}[\titlerule]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+\setlength{\parindent}{0pt}
+\pagestyle{empty}
+
+\begin{document}
+
+((= ---------- Header ---------- =))
+\begin{center}
+  {\LARGE\bfseries ((( resume.name )))}\\[2pt]
+  ((* if contacts *))
+  \small ((( contacts | join('  $|$  ') )))
+  ((* endif *))
+\end{center}
+
+((= ---------- Summary ---------- =))
+((* if resume.summary *))
+\section{Summary}
+((( resume.summary )))
+((* endif *))
+
+((= ---------- Core Competencies ---------- =))
+((* if resume.core_competencies *))
+\section{Core Competencies}
+((( resume.core_competencies | join(' \\textbullet\\ ') )))
+((* endif *))
+
+((= ---------- Experience ---------- =))
+((* if resume.experience *))
+\section{Experience}
+((* for job in resume.experience *))
+\textbf{((( job.title )))} ((* if job.company *))\textbar\ ((( job.company )))((* endif *))
+((* if job.location *)) \textit{((( job.location )))}((* endif *))
+\hfill ((( job.start ))) ((* if job.end *))-- ((( job.end )))((* endif *))\\[1pt]
+((* if job.bullets *))
+\begin{itemize}
+((* for b in job.bullets *))
+  \item ((( b )))
+((* endfor *))
+\end{itemize}
+((* endif *))
+((* endfor *))
+((* endif *))
+
+((= ---------- Projects ---------- =))
+((* if resume.projects *))
+\section{Projects}
+((* for p in resume.projects *))
+\textbf{((( p.name )))}((* if p.tech *)) \textit{((( p.tech | join(', ') )))}((* endif *))
+((* if p.link *)) \hfill \href{((( p.link_raw )))}{((( p.link )))}((* endif *))\\[1pt]
+((* if p.bullets *))
+\begin{itemize}
+((* for b in p.bullets *))
+  \item ((( b )))
+((* endfor *))
+\end{itemize}
+((* endif *))
+((* endfor *))
+((* endif *))
+
+((= ---------- Education ---------- =))
+((* if resume.education *))
+\section{Education}
+((* for e in resume.education *))
+\textbf{((( e.degree )))} ((* if e.institution *))\textbar\ ((( e.institution )))((* endif *))
+((* if e.location *)) \textit{((( e.location )))}((* endif *))
+\hfill ((( e.start ))) ((* if e.end *))-- ((( e.end )))((* endif *))\\
+((* if e.details *))((( e.details )))\\((* endif *))
+((* endfor *))
+((* endif *))
+
+((= ---------- Certifications ---------- =))
+((* if resume.certifications *))
+\section{Certifications}
+\begin{itemize}
+((* for c in resume.certifications *))
+  \item ((( c )))
+((* endfor *))
+\end{itemize}
+((* endif *))
+
+((= ---------- Achievements ---------- =))
+((* if resume.achievements *))
+\section{Achievements}
+\begin{itemize}
+((* for a in resume.achievements *))
+  \item ((( a )))
+((* endfor *))
+\end{itemize}
+((* endif *))
+
+\end{document}

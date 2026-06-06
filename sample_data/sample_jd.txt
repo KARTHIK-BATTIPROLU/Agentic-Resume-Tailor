@@ -1,0 +1,26 @@
+Backend Engineer (Platform) — Aperture Cloud
+
+About the role
+We're hiring a Backend Engineer to design and operate the APIs and services that
+power our developer platform. You'll work on high-throughput, low-latency systems
+and own features from design through production.
+
+Responsibilities
+- Design, build, and operate scalable backend services and RESTful APIs.
+- Improve reliability and performance of distributed systems under heavy load.
+- Build event-driven pipelines and asynchronous processing workflows.
+- Add observability (metrics, logging, tracing) and participate in on-call.
+- Collaborate on API design and mentor other engineers through code review.
+
+Requirements
+- 4+ years building backend services in Python (Go is a plus).
+- Strong experience with FastAPI or similar async web frameworks.
+- Solid knowledge of PostgreSQL and caching (Redis).
+- Experience with message queues such as Kafka and containerization with Docker.
+- Familiarity with AWS and Kubernetes.
+- Track record of designing reliable, observable, high-throughput systems.
+
+Nice to have
+- Experience with payments or financial systems.
+- Open-source contributions.
+- gRPC and CI/CD pipeline experience.
