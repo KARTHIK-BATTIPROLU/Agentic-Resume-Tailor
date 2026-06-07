@@ -1069,13 +1069,19 @@ module.exports = {
     referenceSearchSetting: [],
     errorLogsComponents: [],
     referenceIndices: [],
-    railEntries: [],
+    railEntries: [
+      Path.resolve(
+        __dirname,
+        '../modules/resume-tailor/frontend/js/rail-entry.tsx'
+      ),
+    ],
     railPopovers: [],
   },
 
   moduleImportSequence: [
     'history-v1',
     'launchpad',
+    'resume-tailor',
     'server-ce-scripts',
     'user-activate',
   ],

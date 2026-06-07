@@ -9,11 +9,13 @@ from fastapi.responses import FileResponse, HTMLResponse
 
 from app import db
 from app.agent import ats
+from app.agent.generate import generate_resume
 from app.agent.llm import chat_json
 from app.agent.prompts import JD_PARSE_SYSTEM_PROMPT, build_jd_parse_message
 from app.memory.extract import extract_career_facts
 from app.memory.profile import apply_extraction, confirm, delete_item, edit_item, get_profile
-from app.models import ChatIn, ChatOut, ConfirmIn, ConfirmOut, ScoreIn
+from app.models import ChatIn, ChatOut, ConfirmIn, ConfirmOut, GenerateIn, ScoreIn
+from app.render.render import build_tex
 
 router = APIRouter()
 
@@ -99,6 +101,32 @@ async def score_resume(payload: ScoreIn) -> dict:
             req = {}
     return {"ats": ats.score(payload.resume_json, req, payload.job_description),
             "jd_requirements": req}
+
+
+@router.post("/tailor/tex")
+async def tailor_tex(payload: GenerateIn) -> dict:
+    """Tailor a resume for a JD and return LaTeX source (not a PDF).
+
+    Used by the Overleaf addon: Overleaf compiles the .tex itself, so this returns
+    the source plus the analysis and a deterministic ATS breakdown.
+    """
+    try:
+        out = await generate_resume(payload.user_id, payload.job_description)
+    except RuntimeError as exc:
+        raise HTTPException(status_code=502, detail=str(exc))
+    resume = out.get("resume", {})
+
+    try:
+        req = await chat_json(JD_PARSE_SYSTEM_PROMPT, build_jd_parse_message(payload.job_description))
+    except Exception:
+        req = {}
+
+    return {
+        "tex": build_tex(resume),
+        "analysis": out.get("analysis", {}),
+        "ats": ats.score(resume, req, payload.job_description),
+        "resume": resume,
+    }
 
 
 @router.get("/resume/{resume_id}/pdf")
