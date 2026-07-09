@@ -1,0 +1,23 @@
+fastapi
+uvicorn[standard]
+# Neo4j — ONLY datastore. No Mongo, no Redis, no Postgres.
+neo4j>=5.27,<6
+pydantic
+pydantic-settings
+python-dotenv
+# LLM (Groq); mocked in tests via LLM_MOCK=true in env
+groq
+langgraph>=1.2,<2
+langchain-core
+sentence-transformers
+torch
+numpy
+jinja2
+python-multipart
+httpx
+# File ingestion
+pdfplumber
+python-docx
+# Tests
+pytest
+pytest-asyncio

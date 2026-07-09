@@ -1,4 +1,4 @@
-"""Deterministic, explainable ATS scorer — no LLM, pure and unit-testable.
+﻿"""Deterministic, explainable ATS scorer â€” no LLM, pure and unit-testable.
 
 ``score(resume_json, jd_requirements, jd_text)`` returns:
     {score, match_pct, matched[], missing[], checks{...}}

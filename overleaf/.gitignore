@@ -4,3 +4,9 @@
 # user defined files
 .env
 docker-compose.override.yml
+
+# Resume Tailor Agent — Python artifacts
+services/resume-tailor-agent/**/__pycache__/
+services/resume-tailor-agent/**/*.py[cod]
+services/resume-tailor-agent/output/
+services/resume-tailor-agent/.cache/
